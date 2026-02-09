@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>botId取得テスト</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- LIFF SDK -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+
+<body>
+  <h2>botId取得テスト</h2>
+
+  <p id="result">取得中...</p>
+
+  <script>
+    const LIFF_ID = "ここにLIFF ID";
+
+    async function initLiff() {
+      await liff.init({ liffId: LIFF_ID });
+
+      if (!liff.isLoggedIn()) {
+        liff.login();
+        return;
+      }
+
+      const context = liff.getContext();
+      const botId = context?.botId || "取得できません";
+
+      // 画面表示
+      document.getElementById("result").textContent = botId;
+
+      // コンソール表示（開発者ツール用）
+      console.log("botId:", botId);
+    }
+
+    initLiff();
+  </script>
+</body>
+</html>
